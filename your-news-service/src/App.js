@@ -54,11 +54,21 @@ const App = () => {
         <Header/>
         <h2>Dashboard</h2>
         <SelectedCategories/>
-        <Article className="Article" title='title' text='asfsdf dfsdf sdf. fsdfsdf sd.fdsfs .fsdfs' source='HS' sourceLink="https://www.hs.fi/"/>
-        <Article className="Article" title='title' text='asfsdf dfsdf sdf. gdfgdfggdf gdf gfgdfgdfgd ' source='HS' sourceLink="https://www.hs.fi/"/>
-        <Article className="Article" title='title' text='asfsdf dfsdf sdf. fsdfsdf sd.fdsfs .fsdfs' source='HS' sourceLink="https://www.hs.fi/"/>
-        <Article className="Article" title='title' text='asfsdf dfsdf sdf. fsdfsdf sd.fdsfs .fsdfs' source='HS' sourceLink="https://www.hs.fi/"/>
-        <Article className="Article" title='title' text='asfsdf dfsdf sdf. fsdfsdf sd.fdsfs .fsdfs' source='HS' sourceLink="https://www.hs.fi/"/>
+        <Article className="Article" title="Stock market on comeback trail heads into what's supposed to be another stellar earnings season" 
+          text='Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.' 
+          source='cnbc' sourceLink="https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html"/>
+        <Article className="Article" title="Stock market on comeback trail heads into what's supposed to be another stellar earnings season" 
+          text='Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.' 
+          source='cnbc' sourceLink="https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html"/>
+        <Article className="Article" title="Stock market on comeback trail heads into what's supposed to be another stellar earnings season" 
+          text='Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.' 
+          source='cnbc' sourceLink="https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html"/>
+        <Article className="Article" title="Stock market on comeback trail heads into what's supposed to be another stellar earnings season" 
+          text='Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.' 
+          source='cnbc' sourceLink="https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html"/>
+        <Article className="Article" title="Stock market on comeback trail heads into what's supposed to be another stellar earnings season" 
+          text='Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.' 
+          source='cnbc' sourceLink="https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html"/>
       </div>
     );
     }

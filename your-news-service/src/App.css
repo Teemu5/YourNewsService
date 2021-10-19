@@ -30,9 +30,9 @@
 }
 .Article {
   display: inline-block;
+  max-width:540px;
   border-style: outset;
   background-color: rgb(201, 201, 201);
-  height: 20vmin;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
