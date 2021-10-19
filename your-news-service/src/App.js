@@ -35,14 +35,14 @@ const App = () => {
     const handleRedirect = ({sourceLink}) => {
       // NOT WORKING!
       return (
-        <Link to={{ pathname: "https://www.hs.fi/" }} target="_blank" />
+        <Link to={{ pathname: sourceLink }} target="_blank" />
       )
     }
     return (
       <div className="Article">
     <h1>{title}</h1>
     <h3>{text}</h3>
-    <span >source: </span><a href="https://www.hs.fi/" rel="noreferrer">{source}</a>
+    <span >source: </span><a href={sourceLink} rel="noreferrer">{source}</a>
     <button onClick={handleRedirect}>Open in {source}</button>
     <button onClick={handleRedirect}>Share</button>
     </div>
