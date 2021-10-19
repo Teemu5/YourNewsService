@@ -29,10 +29,27 @@
   text-align:right;
 }
 .Article {
+  display: inline-block;
+  border-style: outset;
   background-color: rgb(201, 201, 201);
-  height: 40vmin;
+  height: 20vmin;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
-
+.Category {
+  display: inline-block;
+  border-style: outset;
+  background-color: rgb(231, 231, 231);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.Categories-button {
+  display: inline-block;
+  border-style: outset;
+  background-color: rgb(231, 231, 231);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
