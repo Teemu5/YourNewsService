@@ -1,13 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import {
-  Switch, Route,
+  Switch, Route, Link,
 } from 'react-router-dom'
 
 const App = () => {
   const Header = () => {
     return (
-    <h1 className="Header"><span>Your News Service</span></h1>
+    <h1 className="Header"><span className="Header-text-title"><Link to="/dashboard"> Your News Service </Link></span>
+    <span className="Header-text-statistics"><Link to="/statistics"> Statistics </Link></span><span className="Header-text-categories"> Categories </span>
+    <span className="Header-text-logout"> Logout </span>
+    <span></span></h1>
     
   )
   }

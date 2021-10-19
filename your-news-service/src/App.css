@@ -8,9 +8,26 @@
 }
 
 .Header {
+  display: block;
+  padding:20px;
   background-color: rgb(80, 80, 251);
 }
-
+.Header-text-title {
+  padding:20px;
+  text-align:left;
+}
+.Header-text-statistics {
+  padding:20px;
+  text-align:right;
+}
+.Header-text-categories {
+  padding:20px;
+  text-align:right;
+}
+.Header-text-logout {
+  padding:20px;
+  text-align:right;
+}
 .Article {
   background-color: rgb(201, 201, 201);
   height: 40vmin;
