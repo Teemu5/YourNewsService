@@ -67,6 +67,8 @@ const App = () => {
     return (
       <div className="App">
         <Header/>
+        <h2>Statistics</h2>
+        <h5>Categories by popularity</h5>
         <div>Cooking: 43</div>
         <div>Finance: 25</div>
         <div>Movies: 10</div>
