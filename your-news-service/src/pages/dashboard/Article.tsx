@@ -5,10 +5,11 @@ interface ArticleProps {
     title: string;
     source: string;
     sourceLink: string;
+    category: string;
 }
 
 const Article = (props: ArticleProps) => {
-    const {source, sourceLink, text, title} = props;
+    const {source, sourceLink, text, title, category} = props;
 
     const openSource = (link: string) => {
         const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
@@ -21,6 +22,7 @@ const Article = (props: ArticleProps) => {
                 <Typography gutterBottom variant="h5">{title}</Typography>
                 <Typography variant="body2" color="text.secondary">{text}</Typography>
                 <span>source: {source}</span>
+                <div>category: {category}</div>
             </CardContent>
             <CardActions>
                 <Button size="small" disabled>Share</Button>

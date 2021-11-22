@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import newsService from '../../services/news'
-import axios from 'axios'
 
 import {
     Box,
@@ -33,42 +32,49 @@ const articles: ArticleItem[] = [
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
     {
         title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
     {
         title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
     {
         title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
     {
         title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
     {
         title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
     {
         title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
         text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
         source: 'cnbc',
         sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
+        category: "business",
     },
 ];
 
@@ -83,40 +89,20 @@ const MenuProps = {
     },
 };
 
+
 const Dashboard = () => {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [articles, setArticles] = useState<ArticleItem[]>([])
-    /*const [state, setState] = useState<ArticleItem[]>({
-        articles: [],
-        isLoading: true,
-        errors: null
-      })*/
 
-    useEffect(() => {
-        newsService.getAll().then((initialArticles: React.SetStateAction<ArticleItem[]>) => {
-            setArticles( initialArticles )
-          //initialArticles.sort((a, b) => b.likes - a.likes) 
-        })
-      }, [])
+        useEffect(() => {
 
-    
-      useEffect(() => {
-        // my apiKey is 1c2c347030b145fd9b6aeb4a4a3e073c
-        // MAXIMUM 100 REQUESTS PER DAY
-        // https://newsapi.org/v2/everything?q=ai&apiKey=1c2c347030b145fd9b6aeb4a4a3e073c
-        newsService.getArticlesAPI().then((articles: ArticleItem[]) => {
-            setArticles(
-                articles
-                )
-          })
-      }, [])
-
-    //  PITÄISI MYÖS LISÄTÄ BACKEND
-    const getAndSetArticles = () => {
-        //print(newsService.getArticlesAPI())
-    }
-
-
+        //  PITÄISI VARMAAN MYÖS SÄILÖÄ BACKENDIIN JA ESIMERKIKSI HAKEA UUDELLEEN MAKSIMISSAAN 5 MIN VÄLIEN
+        const getArticlesBing = async () => {
+            setArticles(await newsService.getAllBingNewsArticles())
+            console.log(articles)
+        }
+        getArticlesBing()
+        }, [])
     const handleChange = (event: SelectChangeEvent<string[]>) => {
         const {target}: any = event;
         const {value}: { value: string[] } = target;
@@ -153,7 +139,7 @@ const Dashboard = () => {
             {articles.map((article: ArticleItem) =>
                 <div style={{maxWidth: "33%",}}>
                     <Article text={article.text} title={article.title}
-                             source={article.source} sourceLink={article.sourceLink}/>
+                             source={article.source} sourceLink={article.sourceLink} category={article.category}/>
                 </div>
             )}
         </Box>

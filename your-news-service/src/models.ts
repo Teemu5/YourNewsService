@@ -3,4 +3,5 @@ export interface ArticleItem {
     title: string;
     source: string;
     sourceLink: string;
+    category: string;
 }
