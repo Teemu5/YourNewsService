@@ -1,4 +1,7 @@
-import {useState} from "react";
+import React, { useState, useEffect } from 'react'
+import newsService from '../../services/news'
+import axios from 'axios'
+
 import {
     Box,
     Checkbox,
@@ -82,6 +85,37 @@ const MenuProps = {
 
 const Dashboard = () => {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [articles, setArticles] = useState<ArticleItem[]>([])
+    /*const [state, setState] = useState<ArticleItem[]>({
+        articles: [],
+        isLoading: true,
+        errors: null
+      })*/
+
+    useEffect(() => {
+        newsService.getAll().then((initialArticles: React.SetStateAction<ArticleItem[]>) => {
+            setArticles( initialArticles )
+          //initialArticles.sort((a, b) => b.likes - a.likes) 
+        })
+      }, [])
+
+    
+      useEffect(() => {
+        // my apiKey is 1c2c347030b145fd9b6aeb4a4a3e073c
+        // MAXIMUM 100 REQUESTS PER DAY
+        // https://newsapi.org/v2/everything?q=ai&apiKey=1c2c347030b145fd9b6aeb4a4a3e073c
+        newsService.getArticlesAPI().then((articles: ArticleItem[]) => {
+            setArticles(
+                articles
+                )
+          })
+      }, [])
+
+    //  PITÄISI MYÖS LISÄTÄ BACKEND
+    const getAndSetArticles = () => {
+        //print(newsService.getArticlesAPI())
+    }
+
 
     const handleChange = (event: SelectChangeEvent<string[]>) => {
         const {target}: any = event;

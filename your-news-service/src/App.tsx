@@ -4,8 +4,10 @@ import {
 } from 'react-router-dom'
 import Dashboard from "./pages/dashboard/Dashboard";
 import Header from "./pages/common/Header";
+import React from 'react'
 
 const App = () => {
+    
     const Statistics = () => {
         return (
             <>
