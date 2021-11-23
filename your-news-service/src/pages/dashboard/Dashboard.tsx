@@ -17,65 +17,15 @@ import Article from "./Article";
 import {ArticleItem} from "../../models";
 
 const categories = [
-    "Finance",
-    "Cooking",
-    "Baseball",
-    "Football",
-    "Cycling",
-    "Programming",
-    "Entertainment",
-];
-
-const articles: ArticleItem[] = [
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
-    {
-        title: "Stock market on comeback trail heads into what's supposed to be another stellar earnings season",
-        text: 'Stock proved hard to keep down this week, and the start of the earnings season could further bolster the comeback if profits roll in as expected or better.',
-        source: 'cnbc',
-        sourceLink: "https://www.cnbc.com/2021/10/08/stock-market-on-comeback-trail-heads-into-whats-supposed-to-be-another-stellar-earnings-season-.html",
-        category: "business",
-    },
+    'Business',
+    'Entertainment',
+    'Health',
+    'Politics',
+    'Products',
+    'ScienceAndTechnology',
+    'Sports',
+    'US',
+    'World',
 ];
 
 const ITEM_HEIGHT = 48;
@@ -94,15 +44,14 @@ const Dashboard = () => {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [articles, setArticles] = useState<ArticleItem[]>([])
 
-        useEffect(() => {
-
+    useEffect(() => {
         //  PITÄISI VARMAAN MYÖS SÄILÖÄ BACKENDIIN JA ESIMERKIKSI HAKEA UUDELLEEN MAKSIMISSAAN 5 MIN VÄLIEN
         const getArticlesBing = async () => {
-            setArticles(await newsService.getAllBingNewsArticles())
-            console.log(articles)
+            setArticles(await newsService.getAllBingNewsArticles(selectedCategories));
         }
         getArticlesBing()
-        }, [])
+    }, [selectedCategories]);
+
     const handleChange = (event: SelectChangeEvent<string[]>) => {
         const {target}: any = event;
         const {value}: { value: string[] } = target;
@@ -137,9 +86,8 @@ const Dashboard = () => {
     const renderArticles = () =>
         <Box sx={{display: "flex", flexDirection: "row", flexWrap: "wrap",}}>
             {articles.map((article: ArticleItem) =>
-                <div style={{maxWidth: "33%",}}>
-                    <Article text={article.text} title={article.title}
-                             source={article.source} sourceLink={article.sourceLink} category={article.category}/>
+                <div key={article.title} style={{maxWidth: "33%",}}>
+                    <Article item={article}/>
                 </div>
             )}
         </Box>

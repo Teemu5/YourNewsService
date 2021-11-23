@@ -1,15 +1,13 @@
 import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
+import {ArticleItem} from "../../models";
 
 interface ArticleProps {
-    text: string;
-    title: string;
-    source: string;
-    sourceLink: string;
-    category: string;
+    item: ArticleItem;
 }
 
 const Article = (props: ArticleProps) => {
-    const {source, sourceLink, text, title, category} = props;
+    const {item} = props;
+    const {title, description, source, category, imageUrl, sourceLink} = item;
 
     const openSource = (link: string) => {
         const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
@@ -20,9 +18,15 @@ const Article = (props: ArticleProps) => {
         <Card sx={{margin: ".66rem",}}>
             <CardContent>
                 <Typography gutterBottom variant="h5">{title}</Typography>
-                <Typography variant="body2" color="text.secondary">{text}</Typography>
-                <span>source: {source}</span>
-                <div>category: {category}</div>
+                <img alt="News article image" src={imageUrl}/>
+                <Typography variant="body2" color="text.secondary">{description}</Typography>
+                <div>Category: {category}</div>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                }}>Source: {source.name} <img alt="Source provider logo" width={60} src={source.imageUrl}/></div>
             </CardContent>
             <CardActions>
                 <Button size="small" disabled>Share</Button>

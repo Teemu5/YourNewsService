@@ -1,87 +1,79 @@
 import axios from 'axios'
-import {ArticleItem} from "../models";
+import {ArticleItem, NewsResponse} from "../models";
+import {getNewsCache, setNewsCache} from "./IndexedDB";
 
-  const getBingNewsArticlesForCategory = async (category: string) => {
-
+const getBingNewsArticlesForCategory = async (category: string): Promise<ArticleItem[]> => {
+    // Get articles from cache
+    const cached = await getNewsCache(category);
+    if (cached.length) return cached;
     // MAXIMUM 1,000 request / month
     // 3 requests per second
-    var axios = require("axios").default;
-    var newArticles: ArticleItem[] = []
-    var options = {
-      method: 'GET',
-      url: 'https://bing-news-search1.p.rapidapi.com/news',
-      params: {
-        category: 'Business',
-        cc: 'US',
-        setLang: 'en-US',
-        safeSearch: 'Off',
-        textFormat: 'Raw'
-      },
-      headers: {
-        'x-bingapis-sdk': 'true',
-        'x-rapidapi-host': 'bing-news-search1.p.rapidapi.com',
-        'x-rapidapi-key': '672414f34bmsh96fc902ca2c6841p1f1181jsnee10a2cef1b2'
-      }
+    const options = {
+        params: {
+            category: category,
+            cc: 'US',
+            setLang: 'en-US',
+            safeSearch: 'Off',
+            textFormat: 'Raw'
+        },
+        headers: {
+            'x-bingapis-sdk': 'true',
+            'x-rapidapi-host': 'bing-news-search1.p.rapidapi.com',
+            'x-rapidapi-key': '672414f34bmsh96fc902ca2c6841p1f1181jsnee10a2cef1b2'
+        }
     }
-    await axios.request(options).then((response: { data: {
-    value: any } }) => response.data.value.map(
-    (article: { provider: any; description: any; name: any; url: any; topic: any;}) => ({
-        source: `${article.provider[0].name}`,
-        text: `${article.description}`,
-        title: `${article.name}`,
-        sourceLink: `${article.url}`,
-        category: `${category}`
-    }))).then((resArticles: ArticleItem[]) => {
-      newArticles = resArticles
-      console.log(resArticles)
-    })
+    const res = await axios.get<NewsResponse>('https://bing-news-search1.p.rapidapi.com/news', options);
+    const articles = res.data.value.map(v => ({
+        description: v.description,
+        title: v.name,
+        source: {
+            name: v.provider[0]?.name,
+            imageUrl: v.provider[0]?.image?.thumbnail?.contentUrl,
+        },
+        sourceLink: v.url,
+        category,
+        imageUrl: v.image?.thumbnail?.contentUrl,
+    }));
 
-    return newArticles
-  }
+    setNewsCache(category, articles);
 
-  const getAllBingNewsArticles = async () => {
-    /*
-    ALL CATEGORIES IN BING NEWS API
-    */
-   console.log(getBingNewsArticlesForCategory('business'))
-    return [...await getBingNewsArticlesForCategory('business'), ...await getBingNewsArticlesForCategory('Entertainment'),
-            ...await getBingNewsArticlesForCategory('Health'), ...await getBingNewsArticlesForCategory('Politics'),
-            ...await getBingNewsArticlesForCategory('Products'), ...await getBingNewsArticlesForCategory('ScienceAndTechnology'),
-            ...await getBingNewsArticlesForCategory('Sports'), ...await getBingNewsArticlesForCategory('US'), 
-            ...await getBingNewsArticlesForCategory('World')]
-    }
+    return articles;
+}
+
+const getAllBingNewsArticles = async (categories: string[]): Promise<ArticleItem[]> =>
+    (await Promise.all(categories.map(async (c: string) => await getBingNewsArticlesForCategory(c)))).flat();
 
 
-
-
-
-  const getNewscatcherArticles = () => {
+const getNewscatcherArticles = () => {
 
     // MAXIMUM 21 REQUEST PER HOUR
     var axios = require("axios").default;
 
-var options = {
-  method: 'GET',
-  url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
-  params: {lang: 'en', media: 'True'},
-  headers: {
-    'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
-    'x-rapidapi-key': '672414f34bmsh96fc902ca2c6841p1f1181jsnee10a2cef1b2'
-  }
-  }
+    var options = {
+        method: 'GET',
+        url: 'https://newscatcher.p.rapidapi.com/v1/latest_headlines',
+        params: {lang: 'en', media: 'True'},
+        headers: {
+            'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+            'x-rapidapi-key': '672414f34bmsh96fc902ca2c6841p1f1181jsnee10a2cef1b2'
+        }
+    }
 
-  const articles = axios.request(options).then((response: { data: {
-    articles: any } }) => response.data.articles.map(
-    (article: { clean_url: any; summary: any; title: any; link: any; topic: any;}) => ({
-        source: `${article.clean_url}`,
-        text: `${article.summary}`,
-        title: `${article.title}`,
-        sourceLink: `${article.link}`,
-        category: `${article.topic}`
-    }))
-)
-console.log(articles)
-return articles
+    const articles = axios.request(options).then((response: {
+            data: {
+                articles: any
+            }
+        }) => response.data.articles.map(
+            (article: { clean_url: any; summary: any; title: any; link: any; topic: any; }) => ({
+                source: `${article.clean_url}`,
+                text: `${article.summary}`,
+                title: `${article.title}`,
+                sourceLink: `${article.link}`,
+                category: `${article.topic}`
+            }))
+    )
+    console.log(articles)
+    return articles
 }
 
 /*
@@ -106,11 +98,7 @@ return articles
   }
 */
 
-export default { getNewscatcherArticles, getBingNewsArticlesForCategory, getAllBingNewsArticles }
-
-
-
-
+export default {getNewscatcherArticles, getBingNewsArticlesForCategory, getAllBingNewsArticles}
 
 
 // NO BACKEND YET
