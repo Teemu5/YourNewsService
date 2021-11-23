@@ -15,6 +15,8 @@ import {
 import Header from "../common/Header";
 import Article from "./Article";
 import {ArticleItem} from "../../models";
+import {useAppDispatch, useAppSelector} from "../../state/store";
+import {updateSelectedCategories} from "../../state/app-slice";
 
 const categories = [
     'Business',
@@ -41,21 +43,24 @@ const MenuProps = {
 
 
 const Dashboard = () => {
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-    const [articles, setArticles] = useState<ArticleItem[]>([])
+    const [articles, setArticles] = useState<ArticleItem[]>([]);
+    const dispatch = useAppDispatch();
+    const {selected} = useAppSelector(state => state.app.categories);
 
     useEffect(() => {
-        //  PITÄISI VARMAAN MYÖS SÄILÖÄ BACKENDIIN JA ESIMERKIKSI HAKEA UUDELLEEN MAKSIMISSAAN 5 MIN VÄLIEN
         const getArticlesBing = async () => {
-            setArticles(await newsService.getAllBingNewsArticles(selectedCategories));
+            const articles = await newsService.getAllBingNewsArticles(selected);
+            articles.sort((a: ArticleItem, b: ArticleItem) =>
+                b.datePublished.localeCompare(a.datePublished));
+            setArticles(articles);
         }
         getArticlesBing()
-    }, [selectedCategories]);
+    }, [selected]);
 
     const handleChange = (event: SelectChangeEvent<string[]>) => {
         const {target}: any = event;
         const {value}: { value: string[] } = target;
-        setSelectedCategories(value);
+        dispatch(updateSelectedCategories(value));
     };
 
     const renderCategorySelector = () => {
@@ -66,7 +71,7 @@ const Dashboard = () => {
                     labelId="categories-select-label"
                     id="categories-select-checkbox"
                     multiple
-                    value={selectedCategories}
+                    value={selected}
                     onChange={handleChange}
                     input={<OutlinedInput label="Category"/>}
                     renderValue={(selected) => selected.join(', ')}
@@ -74,7 +79,7 @@ const Dashboard = () => {
                 >
                     {categories.map((name) => (
                         <MenuItem key={name} value={name}>
-                            <Checkbox checked={selectedCategories.includes(name)}/>
+                            <Checkbox checked={selected.includes(name)}/>
                             <ListItemText primary={name}/>
                         </MenuItem>
                     ))}

@@ -35,4 +35,5 @@ export interface ArticleItem {
     sourceLink: string;
     category: string;
     imageUrl?: string;
+    datePublished: string;
 }

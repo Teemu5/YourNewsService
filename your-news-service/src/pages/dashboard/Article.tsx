@@ -7,7 +7,7 @@ interface ArticleProps {
 
 const Article = (props: ArticleProps) => {
     const {item} = props;
-    const {title, description, source, category, imageUrl, sourceLink} = item;
+    const {title, description, source, category, imageUrl, sourceLink, datePublished} = item;
 
     const openSource = (link: string) => {
         const newWindow = window.open(link, '_blank', 'noopener,noreferrer');
@@ -27,6 +27,7 @@ const Article = (props: ArticleProps) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                 }}>Source: {source.name} <img alt="Source provider logo" width={60} src={source.imageUrl}/></div>
+                <span>Published: {new Date(datePublished).toLocaleString()}</span>
             </CardContent>
             <CardActions>
                 <Button size="small" disabled>Share</Button>

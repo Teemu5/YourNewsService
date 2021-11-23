@@ -4,12 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
-  BrowserRouter as Router
+    BrowserRouter as Router
 } from "react-router-dom"
+import {Amplify} from "aws-amplify";
+import awsmobile from "./aws-exports";
+import {Provider} from "react-redux";
+import { store } from "./state/store";
+
+Amplify.configure(awsmobile);
 
 ReactDOM.render(
-    <Router><App /></Router>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <Router>
+            <App/>
+        </Router>
+    </Provider>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

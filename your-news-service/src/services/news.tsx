@@ -22,22 +22,29 @@ const getBingNewsArticlesForCategory = async (category: string): Promise<Article
             'x-rapidapi-key': '672414f34bmsh96fc902ca2c6841p1f1181jsnee10a2cef1b2'
         }
     }
-    const res = await axios.get<NewsResponse>('https://bing-news-search1.p.rapidapi.com/news', options);
-    const articles = res.data.value.map(v => ({
-        description: v.description,
-        title: v.name,
-        source: {
-            name: v.provider[0]?.name,
-            imageUrl: v.provider[0]?.image?.thumbnail?.contentUrl,
-        },
-        sourceLink: v.url,
-        category,
-        imageUrl: v.image?.thumbnail?.contentUrl,
-    }));
+    try {
+        const res = await axios.get<NewsResponse>('https://bing-news-search1.p.rapidapi.com/news', options);
+        const articles = res.data.value.map(v => ({
+            description: v.description,
+            title: v.name,
+            source: {
+                name: v.provider[0]?.name,
+                imageUrl: v.provider[0]?.image?.thumbnail?.contentUrl,
+            },
+            sourceLink: v.url,
+            category,
+            imageUrl: v.image?.thumbnail?.contentUrl,
+            datePublished: v.datePublished,
+        }));
 
-    setNewsCache(category, articles);
+        setNewsCache(category, articles);
 
-    return articles;
+        return articles;
+    } catch (e) {
+        // Probably got 429 or something, so lets print the error and return no news for this category
+        console.error(e);
+        return [];
+    }
 }
 
 const getAllBingNewsArticles = async (categories: string[]): Promise<ArticleItem[]> =>
