@@ -1,0 +1,56 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-yournewsservice-dev-100851-authRole",
+      "UnauthRoleArn": "arn:aws:iam::945424756536:role/amplify-yournewsservice-dev-100851-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::945424756536:role/amplify-yournewsservice-dev-100851-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-yournewsservice-dev-100851-deployment",
+      "UnauthRoleName": "amplify-yournewsservice-dev-100851-unauthRole",
+      "StackName": "amplify-yournewsservice-dev-100851",
+      "StackId": "arn:aws:cloudformation:eu-north-1:945424756536:stack/amplify-yournewsservice-dev-100851/99f01060-4c34-11ec-868c-06c45053f6a2",
+      "AmplifyAppId": "d6nxs4ao66xw0"
+    }
+  },
+  "auth": {
+    "yournewsservice58d95730": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-yournewsservice-dev-100851-deployment/amplify-cfn-templates/auth/yournewsservice58d95730-cloudformation-template.json",
+        "logicalId": "authyournewsservice58d95730"
+      },
+      "lastPushTimeStamp": "2021-11-23T08:16:40.734Z",
+      "output": {
+        "UserPoolId": "eu-north-1_i5onV4YfH",
+        "AppClientIDWeb": "6aa89k0aoi3e5m2stjcifm0o2j",
+        "AppClientID": "6s40o4s689egj1hstg22rkb702",
+        "IdentityPoolId": "eu-north-1:80691a25-99f9-4021-8789-db972db2aa09",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-north-1:945424756536:userpool/eu-north-1_i5onV4YfH",
+        "IdentityPoolName": "yournewsservice58d95730_identitypool_58d95730__dev",
+        "UserPoolName": "yournewsservice58d95730_userpool_58d95730"
+      },
+      "lastPushDirHash": "wUOrs3SuvlCmUVRxtpUZPjVsqPc="
+    }
+  }
+}
