@@ -1,0 +1,31 @@
+{
+  "name": "core",
+  "type": "core",
+  "commands": [
+    "categories",
+    "configure",
+    "console",
+    "delete",
+    "env",
+    "export",
+    "help",
+    "init",
+    "logout",
+    "migrate",
+    "plugin",
+    "publish",
+    "push",
+    "pull",
+    "run",
+    "status",
+    "uninstall",
+    "upgrade",
+    "version",
+    "build"
+  ],
+  "commandAliases": {
+    "h": "help",
+    "serve": "run",
+    "ls": "status"
+  }
+}
