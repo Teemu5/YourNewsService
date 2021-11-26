@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from "./common/Header";
 import { getCategoriesUserCount } from '../helpers'
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 // Categories have name, userCount and index
 const categories = [
     'Business',
@@ -14,17 +14,7 @@ const categories = [
     'US',
     'World'
 ];
-const categorieswithIndex = [
-    {category: 'Business', index: 0},
-    {category: 'Entertainment', index: 1},
-    {category: 'Health', index: 2},
-    {category: 'Politics', index: 3},
-    {category: 'Products', index: 4},
-    {category: 'ScienceAndTechnology', index: 5},
-    {category: 'Sports', index: 6},
-    {category: 'US', index: 7},
-    {category: 'World', index: 8}
-];
+
 const BarChartCategories = (userCounts: any[]) => {
     const data = [
         {category: 'Business', userCount: userCounts[0]},
