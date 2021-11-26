@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import newsService from '../../services/news'
-
 import {
     Box,
     Checkbox,
@@ -17,8 +16,9 @@ import Article from "./Article";
 import {ArticleItem} from "../../models";
 import {useAppDispatch, useAppSelector} from "../../state/store";
 import {updateSelectedCategories} from "../../state/app-slice";
-
-const categories = [
+import { chooseCategory, getCategoriesForCurrentUser } from '../../helpers'
+// Categories have name, userCount and index
+const categories: string[] = [
     'Business',
     'Entertainment',
     'Health',
@@ -27,7 +27,7 @@ const categories = [
     'ScienceAndTechnology',
     'Sports',
     'US',
-    'World',
+    'World'
 ];
 
 const ITEM_HEIGHT = 48;
@@ -41,11 +41,10 @@ const MenuProps = {
     },
 };
 
-
 const Dashboard = () => {
     const [articles, setArticles] = useState<ArticleItem[]>([]);
     const dispatch = useAppDispatch();
-    const {selected} = useAppSelector(state => state.app.categories);
+    const {selected} = useAppSelector((state: { app: { categories: any; }; }) => state.app.categories);
 
     useEffect(() => {
         const getArticlesBing = async () => {
@@ -56,11 +55,20 @@ const Dashboard = () => {
         }
         getArticlesBing()
     }, [selected]);
-
+    
+    useEffect(() => {const getCategories = async () => {
+        dispatch(updateSelectedCategories(await getCategoriesForCurrentUser()))
+        // If user is logged in, Get selected categories from backend
+        
+    }
+    getCategories()
+    }, [])
     const handleChange = (event: SelectChangeEvent<string[]>) => {
         const {target}: any = event;
         const {value}: { value: string[] } = target;
         dispatch(updateSelectedCategories(value));
+        const targetnames: string[] = target.value
+        chooseCategory(targetnames)
     };
 
     const renderCategorySelector = () => {

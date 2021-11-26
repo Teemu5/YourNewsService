@@ -42,6 +42,8 @@ const Header = () => {
 
     const handleClose = () => {
         setIsLoginOpen(false);
+        // Refresh page on close
+        window.location.reload();
     };
 
     const logout = async () => {

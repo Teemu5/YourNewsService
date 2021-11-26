@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
 interface AuthState {
     username: string;
     email: string;
@@ -24,7 +23,7 @@ const initialState: AppState = {
         accessToken: "",
     },
     categories: {
-        selected: [],
+        selected: []
     },
 }
 
