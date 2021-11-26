@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@aws-amplify/cli": "^7.4.5",
+    "concurrently": "^6.4.0"
+  },
+  "scripts": {
+    "your-news-service": "cd your-news-service && npm start",
+    "news-service-backend": "cd news-service-backend && npm start",
+    "dev": "concurrently --kill-others-on-fail \"npm run news-service-backend\" \"npm run your-news-service\"",
+    "heroku-postbuild": "cd your-news-service && npm install && npm run build"
+  }
+}

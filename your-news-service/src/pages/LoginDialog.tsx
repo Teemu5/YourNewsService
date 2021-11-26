@@ -26,7 +26,7 @@ const LoginDialog = (props: { handleClose: () => void, isOpen: boolean }) => {
     const [isSignUp, setIsSignUp] = useState<boolean>(false);
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const [isConfirm, setIsConfirm] = useState<boolean>(false);
-
+    
     const handleUsernameChange = ({target}: ChangeEvent<HTMLInputElement>) => {
         setUsername(target.value);
     }
@@ -141,7 +141,7 @@ const LoginDialog = (props: { handleClose: () => void, isOpen: boolean }) => {
                             value={password2}
                             onChange={handlePassword2Change}
                             label="Password again"
-                        />
+                        />Password has to be at least 10 characters
                     </FormControl>}
                     {isConfirm && <FormControl style={{margin: "1rem",}}>
                         <InputLabel htmlFor="confirmation">Confirmation</InputLabel>
